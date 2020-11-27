@@ -1,0 +1,1173 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body, html {
+    background: linear-gradient(to right, #ff5656 0%, #ff1c1c 60%) !important;
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+}
+
+body {
+    border-collapse: collapse;
+    display: table;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+h1, p, li {
+    color: #222;
+    font-family: 'helvetica neue', helvetica, arial, sans-serif;
+    margin: 0 0 1em;
+}
+
+/*############ MOBILE ##############*/ /*PS:CSS de DESKTOP começa na linha 591*/
+@media only screen and (max-width: 320px) {
+    section li {
+        margin: 0 0 10px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        font-weight: 300;
+        text-shadow: 5px 5px black;
+    }
+
+    p {
+        font-size: 1em;
+        line-height: 1.5em;
+    }
+
+    .wrapper {
+        display: table-cell;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    section {
+        height: auto;
+        padding: 0%;
+        transition: all 200ms ease-in;
+        width: 100%;
+    }
+
+    nav {
+        display: table;
+        height: 100%;
+        left: 0;
+        margin: 1px 0 0 -100%;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        transition: all 200ms ease-in;
+        width: 80%;
+    }
+
+        nav ul {
+            background-color: #444444 !important;
+            display: table-cell;
+            list-style: none;
+            margin: 0;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        nav li {
+            margin: 0;
+            width: 95%;
+        }
+
+        nav a {
+            color: #fff;
+            display: block;
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+            font-size: 12px;
+            font-weight: 999;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+            nav a:hover {
+                background: #111;
+            }
+
+    #label-menu-click {
+        height: 15%;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    #labelMenu {
+        height: 4%;
+        left: 0;
+        position: absolute;
+        top: 5%;
+        transition: all 200ms ease-in;
+        width: 20%;
+        z-index: 1;
+    }
+
+    #labelLogo {
+        left: 0;
+        margin: 0px 0px 0px 18%;
+        position: absolute;
+        text-align: center;
+        top: 5%;
+        transition: all 200ms ease-in;
+        width: 60%;
+        z-index: 1;
+    }
+
+    #menuIcon {
+        cursor: pointer;
+        float: left;
+        margin: 10px 25px 10px 25px;
+        width: 30%;
+        z-index: 1;
+    }
+
+    #menuLogo {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0;
+        width: 75%;
+        z-index: 1;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+        input[type="checkbox"]:checked ~ nav {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        input[type="checkbox"]:checked ~ #labelMenu,
+        input[type="checkbox"]:checked ~ #labelLogo,
+        input[type="checkbox"]:checked ~ #filter-buttons {
+            left: 80%;
+        }
+
+        input[type="checkbox"]:checked ~ section {
+            transform: translate3d(80%, 0, 0);
+        }
+
+    .suggested-box {
+        background-color: #444444;
+        margin: 30% 5% 0% 5%;
+        width: 90%;
+    }
+
+    .label-info {
+        background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.3));
+        position: absolute;
+        width: 90%;
+        z-index: 5;
+        height: 380px;
+        padding: 0;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .label-info div h1 {
+            color: white;
+            font-size: 25px;
+            font-weight: 999;
+            margin: 260px 0 5% 5%;
+        }
+
+    .small-title {
+        color: white !important;
+        font-size: 16px !important;
+        font-weight: 999 !important;
+        margin: 270px 0 5% 5% !important;
+    }
+
+    .label-info :nth-child(2) {
+        margin: 0 0 0 5%;
+        width: 90%;
+    }
+
+        .label-info :nth-child(2) p {
+            color: white;
+            display: inline;
+            float: right;
+            font-size: 12px;
+            margin: 2%;
+            text-shadow: 2px 0px black;
+        }
+
+    .label-info :nth-child(3) {
+        width: 100%;
+    }
+
+    .p-info-sino p {
+        color: white;
+        display: inline;
+        font-size: 12px;
+        margin: 0px 0px 0px 5%;
+        text-shadow: 2px 0px black;
+    }
+
+    .p-info-sino a {
+        display: inline;
+        font-size: 12px;
+        margin: 1% 7% 0% 3% !important;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        text-shadow: 2px 0px black;
+    }
+
+    .filter-buttons {
+        display: flex;
+        margin: auto;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+    }
+
+        .filter-buttons .circle img {
+            display: block;
+            margin: 14px;
+            width: 40px;
+        }
+
+        .filter-buttons .circle p {
+            margin: 10% 0 0 0;
+            text-align: center;
+        }
+
+        .filter-buttons :nth-child(3) {
+            float: right;
+        }
+
+        .filter-buttons :nth-child(2) {
+            border-radius: 5em;
+            display: inline-block;
+            height: 50px;
+            margin: 8% 0% 0% 0%;
+            width: 38%;
+        }
+
+    .circle {
+        background-color: white;
+        border-radius: 50%;
+        display: inline-block;
+        height: 70px;
+        line-height: 200px;
+        margin: 5% 5% 5% 5%;
+        width: 70px;
+    }
+
+    .poster-image {
+        WIDTH: 100%;
+        display: table;
+        margin: 0;
+    }
+
+        .poster-image img {
+            height: 380px;
+            max-width: 100%;
+            object-fit: cover;
+            width: 300px;
+            z-index: 1;
+        }
+
+    .evaluation {
+        display: contents;
+    }
+
+        .evaluation img {
+            margin-bottom: 5%;
+            width: 7%;
+        }
+
+    .background img {
+        height: 100%;
+        margin: 0;
+        opacity: 0.1;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .synopse-modal {
+        background-color: #643F3F;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 6;
+    }
+
+        .synopse-modal div {
+            height: 90%;
+            margin: 8% 3% 8% 3%;
+        }
+
+    .x-close-div {
+        background-color: white;
+        border-radius: 50%;
+        display: table;
+        float: right;
+        font-size: 25px;
+        height: 45px !important;
+        position: absolute;
+        right: -10px;
+        top: -15px;
+        width: 45px;
+    }
+
+    #x-close {
+        display: table-cell;
+        font-weight: 500;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .red-div-synopse {
+        background: linear-gradient(to right, #ff5656 0%, #ff1c1c 60%) !important;
+        border-radius: 1em 1em 0% 0%;
+        height: 20% !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .white-div-synopse {
+        background-color: white !important;
+        display: table;
+        height: 12% !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .white-div-synopse :first-child {
+            display: table-cell;
+            margin: auto;
+            text-align: center;
+        }
+
+            .white-div-synopse :first-child h1 {
+                display: inline;
+                font-size: 30px;
+                font-weight: 700;
+                margin: auto;
+                text-align: center;
+                text-shadow: 0 0 black;
+                top: 0px;
+                vertical-align: top;
+            }
+
+            .white-div-synopse :first-child div {
+                display: table-cell;
+            }
+
+    .synopse-hearts {
+        background: white;
+        font-size: 14px;
+        height: 10% !important;
+        margin: 0 !important;
+        text-align: center;
+        width: 100%;
+    }
+
+    .small-poster-image img {
+        border-radius: 8%;
+        height: 125px;
+        margin-top: -25% !important;
+        object-fit: cover;
+        width: 100px;
+    }
+
+    .white-div-synopse label h1 {
+        font-size: 30px;
+        font-weight: 900;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        text-shadow: none !important;
+        top: 33%;
+    }
+
+    .white-div-synopse label p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 32px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .filter-color-invert {
+        filter: brightness(0.5);
+    }
+
+    .synopse-complete {
+        padding: 0px 70px 15px 70px;
+        text-align: left !important;
+        width: 10%;
+    }
+
+    .last-white-div-synopse {
+        background-color: white !important;
+        border-radius: 0em 0em 1em 1em;
+        display: table;
+        height: 45% !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .last-white-div-synopse label {
+            display: table-cell;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 6%;
+        }
+
+    .List {
+        background-color: white;
+        display: table-cell;
+        height: 100% !important;
+        margin: auto !important;
+        text-align: center;
+        width: 100%;
+    }
+
+    #LikedId {
+        display: table;
+        height: 100%;
+        margin: 60% 0% 0% 0% !important;
+        padding: 0%;
+        transition: all 200ms ease-in;
+        width: 100% !important;
+    }
+
+    #DislikedId {
+        display: table;
+        height: 100%;
+        margin: 60% 0% 0% 0% !important;
+        padding: 0%;
+        transition: all 200ms ease-in;
+        width: 100% !important;
+    }
+
+    input[type="checkbox"]:checked ~ #LikedId {
+        transform: translate3d(80%, 0, 0);
+    }
+
+    .List h1 {
+        font-family: 'Open Sans Regular', sans-serif;
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin: 15px;
+        text-align: left;
+        text-shadow: none;
+    }
+
+    .movie-list-box {
+        display: inline-block;
+        margin: 5px;
+        width: 44%;
+    }
+
+    .movie-list-image {
+        display: table-cell;
+        width: 90%;
+    }
+
+        .movie-list-image img {
+            border-radius: 8%;
+            height: 180px;
+            object-fit: cover;
+            width: 140px;
+        }
+
+        .movie-list-image label {
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.3));
+            border-radius: 8%;
+            height: 180px;
+            position: absolute;
+            width: 140px;
+        }
+
+    .small-title-movie-list {
+        color: white;
+        font-weight: 999 !important;
+        margin: 35% 0% 0px 0px;
+        padding: 3%;
+        position: absolute;
+        width: 40%;
+    }
+
+        .small-title-movie-list h2 {
+            font-size: 13px;
+            font-weight: 900;
+            margin: 0px 0px 0px 7px;
+            position: relative;
+            text-align: left;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+    .evaluation-list {
+        display: inline;
+    }
+
+        .evaluation-list img {
+            filter: initial;
+            margin: 0px;
+            position: relative;
+            width: 15px;
+            z-index: 1;
+        }
+
+    .long-tittle-list {
+        font-size: 10px !important;
+        font-weight: 900 !important;
+        text-align: left !important;
+        text-transform: uppercase !important;
+        z-index: 1 !important;
+    }
+
+    .scree-locker {
+        background: linear-gradient(to right, #ff5656 0%, #ff1c1c 60%) !important;
+        display: table;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        z-index: 7;
+    }
+
+        .scree-locker label {
+            color: white;
+            display: table-cell;
+            font-size: 25px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .no-movies-box {
+        display: table;
+        margin: 20px;
+        padding: 0;
+    }
+
+    .video-camera-vazio {
+        display: inherit;
+        font-size: 30px;
+        font-weight: 600;
+        margin: auto;
+        text-shadow: none;
+    }
+
+    h1.nenhum-filme {
+        filter: opacity(0.5);
+        font-size: 30px;
+        font-weight: 600;
+        margin: 15px;
+        text-align: center;
+        text-shadow: none;
+    }
+
+    .circle:active {
+        border: inset;
+        filter: drop-shadow(2px 4px 6px black);
+    }
+}
+
+/*################# DESKTOP ##################*/
+@media only screen and (min-width: 321px) {
+    #Desktop {
+        display: table;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    #labelLogoDesktop img {
+        display: table-cell;
+        margin: 2% auto 2% auto;
+        position: relative;
+        width: 10%;
+    }
+
+    .desktop-main-section {
+        height: 100%;
+        width: 100%;
+    }
+
+    .nav-desktop {
+        display: table;
+        margin: auto auto 4% auto;
+        position: relative;
+    }
+
+        .nav-desktop ul {
+            padding: 0;
+            text-align: center;
+        }
+
+            .nav-desktop ul li {
+                display: inline;
+            }
+
+                .nav-desktop ul li a {
+                    color: rgba(255,255,255, 0.8);
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 13px;
+                    margin: 24px;
+                }
+
+    .slide-desktop {
+        background-color: white;
+        display: block !important;
+        height: 5px;
+        margin: 0px 0px 0px 23px;
+        opacity: 0;
+        transition: all 0.3s ease-in;
+        width: 26%;
+    }
+
+    .nav-desktop ul li:first-child.active-desktop ~ .slide-desktop {
+        margin: 0px 0px 0px 23px;
+        opacity: 1 !important;
+    }
+
+    .nav-desktop ul li:nth-child(2).active-desktop ~ .slide-desktop {
+        margin: 0px 0px 0px 200px;
+        opacity: 1 !important;
+    }
+
+    .nav-desktop ul li:nth-child(3).active-desktop ~ .slide-desktop {
+        margin: 0px 0px 0px 377px;
+        opacity: 1 !important;
+    }
+
+    .nav-desktop ul li:nth-child(1).active-desktop .curados-menu-desktop {
+        font-weight: bolder;
+    }
+
+    .nav-desktop ul li:nth-child(2).active-desktop .curados-menu-desktop {
+        font-weight: bolder;
+    }
+
+    .nav-desktop ul li:nth-child(3).active-desktop .curados-menu-desktop {
+        font-weight: bolder;
+    }
+
+    .container-desktop {
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        width: 60%;
+    }
+
+    .label-info-desktop {
+        background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.3));
+        border-radius: 1%;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: cover;
+        position: absolute;
+        right: 0;
+        width: 700px;
+        z-index: 5;
+    }
+
+    .filter-buttons-desktop {
+        height: 60%;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        right: 0;
+        width: 60%;
+    }
+
+        .filter-buttons-desktop div {
+            padding: 15px;
+            text-align-last: center;
+        }
+
+    .circle-desktop {
+        background-color: white;
+        border-radius: 5em;
+        cursor: pointer;
+        display: inline-block;
+        height: 65px;
+        position: relative;
+        vertical-align: middle;
+        width: 23%;
+        z-index: 4;
+    }
+
+        .circle-desktop:active {
+            border: inset;
+            filter: drop-shadow(2px 4px 6px black);
+        }
+
+    .filter-buttons-desktop .circle-desktop img {
+        cursor: pointer;
+        display: inline;
+        margin: 0px 10px 0px 0px;
+    }
+
+    .filter-buttons-desktop .circle-desktop p {
+        margin: 10% 0 0 0;
+        text-align: center;
+    }
+
+    .circle-desktop label {
+        cursor: pointer;
+        display: inline;
+        font-weight: 999;
+        margin: auto;
+    }
+
+    .circle-desktop-jump {
+        background-color: white;
+        border-radius: 5em;
+        cursor: pointer;
+        display: inline-block;
+        height: 65px;
+        margin: 30px;
+        position: relative;
+        vertical-align: middle;
+        width: 13%;
+        z-index: 4;
+    }
+
+        .circle-desktop-jump p {
+            margin: 5px;
+            vertical-align: middle;
+        }
+
+        .circle-desktop-jump:active {
+            border: inset;
+            filter: drop-shadow(2px 4px 6px black);
+        }
+
+    .poster-image-desktop {
+        text-align: center;
+    }
+
+        .poster-image-desktop img {
+            border-radius: 1%;
+            filter: drop-shadow(2px 4px 6px black);
+            height: 430px;
+            object-fit: cover;
+            width: 700px;
+        }
+
+    .suggested-box-desktop .label-info-desktop {
+        background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6));
+        display: inline;
+        height: 155px;
+        margin-top: 275px;
+        padding: 25px;
+    }
+
+        .suggested-box-desktop .label-info-desktop div {
+            display: inline;
+        }
+
+            .suggested-box-desktop .label-info-desktop div h1 {
+                color: white;
+                display: inline;
+                font-size: 35px;
+                font-weight: 999;
+                width: 65%;
+            }
+
+            .suggested-box-desktop .label-info-desktop div:first-child {
+            }
+
+            .suggested-box-desktop .label-info-desktop div:nth-child(2) {
+            }
+
+    .evaluation-box {
+        float: right;
+        margin: 7px 0px 7px 7px;
+    }
+
+        .evaluation-box div {
+            margin: 2px;
+        }
+
+    .p-info-sino-desktop p:first-child {
+        color: white;
+        font-size: 13px;
+        margin: 0px 0px 10px 10px;
+        text-align: right;
+    }
+
+    .p-info-sino-desktop p:nth-child(2) {
+        color: white;
+        display: inline;
+        font-size: 13px;
+        margin: 0px 0px 10px 0px;
+        width: 88%;
+    }
+
+    .p-info-sino-desktop a {
+        color: #FF5959;
+        font-size: 13px;
+    }
+
+        .p-info-sino-desktop a label {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+    .synopse-modal-desktop {
+        border-radius: 1%;
+        height: 430px;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 1;
+        position: absolute;
+        right: 0;
+        transition: all 2s ease;
+        width: 700px;
+        z-index: 6;
+    }
+
+    .desktop-synopse-on {
+        background-color: rgba(0,0,0,0.6);
+        height: 100%;
+        position: fixed;
+        transition: all 2s ease;
+        width: 100%;
+        z-index: 5;
+    }
+
+    .x-close-div-desktop {
+        background-color: white;
+        border-radius: 50%;
+        display: table;
+        float: right;
+        font-size: 30px;
+        height: 55px !important;
+        position: absolute;
+        right: -25px;
+        top: -28px;
+        width: 55px;
+    }
+
+    #x-close-desktop {
+        display: table-cell;
+        font-weight: 500;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .red-div-synopse-desktop {
+        background: linear-gradient(to right, #ff5656 0%, #ff1c1c 60%) !important;
+        border-radius: 1em 1em 0% 0%;
+        height: 105px !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .white-div-synopse-desktop {
+        background-color: white !important;
+        display: table;
+        height: 75px;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .white-div-synopse-desktop :first-child {
+            display: table-cell;
+            margin: auto;
+            text-align: center;
+        }
+
+            .white-div-synopse-desktop :first-child h1 {
+                display: inline;
+                font-size: 30px;
+                font-weight: 700;
+                margin: auto;
+                text-align: center;
+                text-shadow: 0 0 black;
+                top: 0px;
+                vertical-align: top;
+            }
+
+            .white-div-synopse-desktop :first-child div {
+                display: table-cell;
+            }
+
+    .small-poster-image-desktop img {
+        border-radius: 8%;
+        height: 125px;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -9% !important;
+        object-fit: cover;
+        position: absolute;
+        right: 0;
+        width: 100px;
+        z-index: 1;
+    }
+
+    .synopse-hearts-desktop {
+        background: white;
+        font-size: 14px;
+        height: 10% !important;
+        margin: 0 !important;
+        text-align: center;
+        width: 100%;
+    }
+
+        .synopse-hearts-desktop p {
+            margin: 0;
+        }
+
+    .evaluation-desktop {
+        display: contents;
+    }
+
+        .evaluation-desktop img {
+            margin-bottom: 2%;
+            width: 3%;
+        }
+
+    .filter-color-invert {
+        filter: brightness(0.5);
+    }
+
+    .last-white-div-synopse-desktop {
+        background-color: white !important;
+        border-radius: 0em 0em 1em 1em;
+        display: table;
+        height: 45% !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .last-white-div-synopse-desktop label {
+            display: table-cell;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 5% 9% 6% 9%;
+        }
+
+    .synopse-complete-desktop {
+        padding: 0px 70px 15px 70px;
+        text-align: left !important;
+        width: 10%;
+    }
+
+    .List-desktop {
+        background-color: white;
+        margin: auto !important;
+        width: 985px;
+    }
+
+        .List-desktop h1 {
+            display: block;
+            font-size: 25px;
+            font-weight: 800;
+            margin: 40px 40px 40px 40px;
+            transform: scale(1, 1.2);
+        }
+
+    #LikedIdDesktop {
+        background-color: white;
+        padding: 1%;
+        position: relative;
+        transition: all 200ms ease-in;
+        width: 100% !important;
+    }
+
+    .movie-list-box-desktop {
+        display: inline-table;
+    }
+
+    .movie-list-image-desktop {
+        margin: auto;
+        width: 100%;
+    }
+
+        .movie-list-image-desktop img {
+            border-radius: 8%;
+            height: 290px;
+            margin: 35px 35px 20px 35px;
+            object-fit: cover;
+            width: 255px;
+        }
+
+        .movie-list-image-desktop label {
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6));
+            border-radius: 8%;
+            border-radius: 8%;
+            height: 290px;
+            margin: 36px;
+            object-fit: cover;
+            position: absolute;
+            width: 255px;
+        }
+
+    .small-title-movie-list-desktop {
+        color: white;
+        font-weight: 999 !important;
+        margin: -163px 0% 0px 0px;
+        padding: 15% 15% 25% 17%;
+        position: sticky;
+        width: 100%;
+    }
+
+        .small-title-movie-list-desktop p {
+            color: white;
+            float: right;
+            font-size: 10px;
+            font-weight: 100;
+            margin: 6px;
+            text-align: right;
+            width: 40%;
+        }
+
+        .small-title-movie-list-desktop h2 {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+    .long-tittle-list-desktop {
+        font-size: 12px !important;
+        font-weight: 900 !important;
+        text-align: left !important;
+        text-transform: uppercase !important;
+        z-index: 1 !important;
+    }
+
+    .evaluation-list-desktop {
+        display: inline;
+    }
+
+    evaluation-list-desktop img {
+        filter: initial;
+        margin: 0px;
+        position: relative;
+        width: 15px;
+        z-index: 1;
+    }
+
+    .filter-color-invert-desktop {
+        filter: brightness(0.5);
+    }
+
+    .small-title-movie-list-desktop img {
+        height: 12px;
+        margin: 2px;
+        width: 12px;
+    }
+
+    .p-info-open-sino-desktop {
+        width: 100%;
+    }
+
+        .p-info-open-sino-desktop p {
+            color: white;
+            display: inline;
+            float: left;
+            font-size: 12px;
+            margin: 0px 0px 0px 0%;
+            text-align: left;
+            text-shadow: 2px 0px black;
+            width: 70%;
+        }
+
+        .p-info-open-sino-desktop a label {
+            background: none !important;
+            border-radius: 0 !important;
+            color: #ff5656;
+            cursor: pointer;
+            display: inline;
+            font-size: 11px;
+            height: auto !important;
+            margin: auto !important;
+            object-fit: none !important;
+            position: relative !important;
+            vertical-align: super;
+            width: auto !important;
+        }
+
+    .video-camera-vazio-desktop {
+        display: block;
+        margin: 90px auto auto auto !important;
+        position: relative;
+    }
+
+    .nenhum-filme-desktop {
+        text-align: center;
+    }
+
+    #DislikedIdDesktop {
+        background-color: white;
+        padding: 1%;
+        position: relative;
+        transition: all 200ms ease-in;
+        width: 100% !important;
+    }
+
+    .no-movies-box-desktop img {
+        transition: all 3s ease;
+    }
+
+    .no-movies-box-desktop .nenhum-filme-desktop {
+        font-size: 32px;
+        font-weight: 600;
+        margin: 15px;
+        text-align: center;
+        transition: all 3s ease;
+    }
+
+    .background img {
+        height: 100%;
+        margin: 0;
+        opacity: 0.1;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .footer-desktop {
+        background-color: #716D69;
+        border: ridge;
+        display: table;
+        margin: auto;
+        text-align: center;
+        width: 100%;
+    }
+
+        .footer-desktop svg {
+            border-radius: 3px;
+            filter: invert(1);
+            height: 18px;
+            margin: 5px;
+            width: 35px;
+        }
+
+    #ButtomCurtir {
+        color: red;
+    }
+}

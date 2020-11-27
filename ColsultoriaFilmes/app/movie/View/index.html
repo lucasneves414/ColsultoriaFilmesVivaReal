@@ -1,0 +1,467 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts/angular.min.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../Transformer/MovieTransformer.js"></script>
+    <script src="../../MovieApp.Constans.js"></script>
+    <script src="../Service/MovieService.js"></script>
+    <script src="../Controller/MovieController.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="../../../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/Styles.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#" />
+
+    <title></title>
+</head>
+<body data-ng-app="MovieApp" data-ng-controller="MovieController as vm">
+
+    <!--####    Sessão das telas de Mobile    ####-->
+    <div class="wrapper" id="Mobile" data-ng-if="vm.Resolution <= 320">
+        <input type="checkbox" id="navigation" data-ng-model="vm.Navigation" />
+        <label for="navigation" id="label-menu-click">&nbsp</label>
+        <div id="labelMenu">
+            <img id="menuIcon" src="../assets/menu-lateral.png" />
+        </div>
+        <div id="labelLogo">
+            <img id="menuLogo" src="../assets/logo-viva-decora.png" />
+        </div>
+
+        <!--Menu-->
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" data-ng-click="vm.Screen = 'NCurados'">
+                        <label for="navigation">FILMES NÃO CURADOS</label></a>
+                </li>
+                <li>
+                    <a href="#" data-ng-click="vm.Screen = 'Curtidos'">
+                        <label for="navigation">FILMES CURTIDOS</label></a>
+                </li>
+                <li>
+                    <a href="#" data-ng-click="vm.Screen = 'NCurtidos'">
+                        <label for="navigation">FILMES NÃO CURTIDOS</label></a>
+                </li>
+            </ul>
+        </nav>
+
+        <!--Sessão da tela principal-->
+        <section data-ng-if="vm.Screen == 'NCurados'">
+            <div class="background" data-ng-if="vm.List.length > vm.Index">
+                <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+            </div>
+            <div data-ng-if="vm.List.length <= vm.Index" class="no-movies-box">
+                <img src="../assets/video-camera-vazio.png" class="video-camera-vazio" />
+                <h1 class="nenhum-filme">NENHUM FILME</h1>
+            </div>
+            <div data-ng-if="vm.SynopseOn" class="synopse-modal">
+                <div>
+                    <div class="x-close-div" data-ng-click="vm.SynopseModal()">
+                        <label id="x-close">
+                            X
+                        </label>
+                    </div>
+                    <div class="red-div-synopse">
+                        &nbsp
+                    </div>
+
+                    <div class="white-div-synopse">
+                        <div class="small-poster-image">
+                            <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+                        </div>
+                    </div>
+
+                    <div class="white-div-synopse">
+                        <div>
+                            <h1>{{vm.MovieTitleSynopse}}</h1>
+                        </div>
+                    </div>
+
+                    <div class="synopse-hearts">
+                        <div data-ng-repeat="item in vm.Evaluation" class="evaluation">
+                            <img data-ng-src="{{item.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert': item.link == '../assets/favorite_.png'}" />
+                        </div>
+                        <p>
+                            ({{vm.EvaluationsCount}} avaliações)
+                        </p>
+                    </div>
+
+                    <div class="last-white-div-synopse">
+                        <label class="synopse-complete">
+                            {{vm.SynopseComplete}}
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="label-info" data-ng-if="vm.List.length > vm.Index">
+                <div>
+                    <h1 data-ng-class="{'small-title': vm.MovieTitle.length >= 15}">{{vm.MovieTitle}}</h1>
+                </div>
+
+                <div>
+                    <div data-ng-repeat="item in vm.Evaluation" class="evaluation">
+                        <img data-ng-src="{{item.link}}" alt="Alternate Text" />
+                    </div>
+                    <p>
+                        ({{vm.EvaluationsCount}} avaliações)
+                    </p>
+                </div>
+
+                <div class="p-info-sino">
+                    <p>
+                        {{vm.SinopePreview}}
+                    </p>
+                    <a href="#" data-ng-click="vm.SynopseModal()">
+                        <label>Ver Sinopse</label></a>
+                </div>
+            </div>
+            <div class="suggested-box" data-ng-if="vm.List.length > vm.Index">
+
+                <div class="poster-image">
+                    <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+                </div>
+
+            </div>
+
+            <div class="filter-buttons" data-ng-if="vm.List.length > vm.Index">
+                <div class="circle" data-ng-click="vm.Disliked()">
+                    <img src="../assets/n-curti.png" />
+                </div>
+
+                <div class="circle" data-ng-click="vm.Jumped()">
+                    <p>PULAR</p>
+                </div>
+
+                <div class="circle" data-ng-click="vm.Liked()">
+                    <img src="../assets/curti.png" />
+                </div>
+                <div class="jump-buttom">
+                </div>
+            </div>
+        </section>
+
+        <!--Sessão da tela dos Filmes Curtidos-->
+        <section data-ng-if="vm.Screen == 'Curtidos'" id="LikedId">
+            <div class="List" data-ng-init="vm.EvaluationFunc(vm.LikedMovies)">
+                <h1>FILMES CURTIDOS</h1>
+
+                <div data-ng-if="vm.LikedMovies.length == 0" class="no-movies-box">
+                    <img src="../assets/video-camera-vazio.png" class="video-camera-vazio" />
+                    <h1 class="nenhum-filme">NENHUM FILME</h1>
+                </div>
+
+                <div class="movie-list-box" data-ng-repeat="item in vm.LikedMovies">
+                    <div class="small-title-movie-list">
+                        <h2 data-ng-class="{'long-tittle-list': item.original_title.length >= 17 }">{{item.original_title}}</h2>
+                        <div data-ng-repeat="item2 in vm.LikedMovies[$index].Coracoes[0]" class="evaluation-list">
+                            <img data-ng-src="{{item2.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert': item2.link == '../assets/favorite_.png'}" />
+                        </div>
+                    </div>
+                    <div class="movie-list-image">
+                        <label></label>
+                        <img data-ng-src="{{vm.URLImage + item.poster_path}}" alt="Capa do Filme" />
+                    </div>
+                    <div class="movie-list-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Sessão da tela dos Filmes não Curtidos-->
+        <section data-ng-if="vm.Screen == 'NCurtidos'" id="DislikedId">
+            <div class="List" data-ng-init="vm.EvaluationFunc(vm.DislikedMovies)">
+                <h1>FILMES NÂO CURTIDOS</h1>
+
+                <div data-ng-if="vm.DislikedMovies.length == 0" class="no-movies-box">
+                    <img src="../assets/video-camera-vazio.png" class="video-camera-vazio" />
+                    <h1 class="nenhum-filme">NENHUM FILME</h1>
+                </div>
+
+                <div class="movie-list-box" data-ng-repeat="item in vm.DislikedMovies">
+                    <div class="small-title-movie-list">
+                        <h2 data-ng-class="{'long-tittle-list': item.original_title.length >= 17 }">{{item.original_title}}</h2>
+                        <div data-ng-repeat="item2 in vm.DislikedMovies[$index].Coracoes[0]" class="evaluation-list">
+                            <img data-ng-src="{{item2.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert': item2.link == '../assets/favorite_.png'}" />
+                        </div>
+
+                    </div>
+                    <div class="movie-list-image">
+                        <label></label>
+                        <img data-ng-src="{{vm.URLImage + item.poster_path}}" alt="Capa do Filme" />
+                    </div>
+                    <div class="movie-list-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--####     Sessões em tamanho de desktop      ####-->
+    <div class="wrapper" id="Desktop" data-ng-if="vm.Resolution >= 321">
+        <div class="background" data-ng-if="vm.List.length > vm.Index">
+            <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+        </div>
+        <div data-ng-class="{'desktop-synopse-on': vm.SynopseOn == true}"></div>
+        <div data-ng-class="{'desktop-synopse-on': vm.SynopseOnFromLikesDeslikes == true}"></div>
+        <div id="labelLogoDesktop">
+            <img id="menuLogoDesktop" src="../assets/logo-viva-decora.png" />
+        </div>
+        <nav class="nav-desktop">
+            <ul class="li-anime-desktop">
+                <li class="active-desktop" data-ng-click="vm.AnimeMenu()"><a class="curados-menu-desktop" data-ng-click="vm.Screen = 'NCurados'" href="#">FILMES NÃO CURADOS</a></li>
+                <li data-ng-click="vm.AnimeMenu()"><a class="curados-menu-desktop" data-ng-click="vm.Screen = 'Curtidos'" href="#">FILMES CURTIDOS</a></li>
+                <li data-ng-click="vm.AnimeMenu()"><a class="curados-menu-desktop" data-ng-click="vm.Screen = 'NCurtidos'" href="#">FILMES NÃO CURTIDOS</a></li>
+                <li class="slide-desktop"></li>
+            </ul>
+        </nav>
+
+        <!--Sessão da tela principal-->
+        <section class="desktop-main-section" data-ng-if="vm.Screen == 'NCurados'">
+            <div data-ng-if="vm.SynopseOn" class="synopse-modal-desktop">
+                <div>
+                    <div class="x-close-div-desktop" data-ng-click="vm.SynopseModalDesktop()">
+                        <label id="x-close-desktop">
+                            X
+                        </label>
+                    </div>
+                    <div class="red-div-synopse-desktop">
+                        &nbsp
+                    </div>
+
+                    <div class="white-div-synopse-desktop">
+                        <div class="small-poster-image-desktop">
+                            <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+                        </div>
+                    </div>
+
+                    <div class="white-div-synopse-desktop">
+                        <div>
+                            <h1>{{vm.MovieTitleSynopse}}</h1>
+                        </div>
+                    </div>
+
+                    <div class="synopse-hearts-desktop">
+                        <div data-ng-repeat="item in vm.Evaluation" class="evaluation-desktop">
+                            <img data-ng-src="{{item.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert': item.link == '../assets/favorite_.png'}" />
+                        </div>
+                        <p>
+                            ({{vm.EvaluationsCount}} avaliações)
+                        </p>
+                    </div>
+
+                    <div class="last-white-div-synopse-desktop">
+                        <label class="synopse-complete-desktop">
+                            {{vm.SynopseComplete}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-desktop">
+                <div class="suggested-box-desktop">
+                    <div data-ng-if="vm.List.length <= vm.Index" class="no-movies-box-desktop">
+                        <img src="../assets/video-camera-vazio.png" class="video-camera-vazio-desktop" />
+                        <h1 class="nenhum-filme-desktop">NENHUM FILME</h1>
+                    </div>
+                    <div class="label-info-desktop" data-ng-if="vm.List.length > vm.Index">
+                        <div>
+                            <h1 data-ng-class="{'small-title': vm.MovieTitle.length >= 15}">{{vm.MovieTitle}}</h1>
+                        </div>
+
+                        <div class="evaluation-box">
+                            <div data-ng-repeat="item in vm.Evaluation">
+                                <img data-ng-src="{{item.link}}" alt="Alternate Text" />
+                            </div>
+
+                        </div>
+
+                        <div class="p-info-sino-desktop">
+                            <p>
+                                ({{vm.EvaluationsCount}} avaliações)
+                            </p>
+
+                            <p>
+                                {{vm.SinopePreviewDesktop}}
+                            </p>
+                            <a href="#" data-ng-click="vm.SynopseModalDesktop()">
+                                <label>Ver Sinopse</label></a>
+                        </div>
+                    </div>
+
+                    <div class="poster-image-desktop" data-ng-if="vm.List.length > vm.Index">
+                        <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="filter-buttons-desktop" data-ng-if="vm.List.length > vm.Index">
+                <div>
+                    <div class="circle-desktop" data-ng-click="vm.Disliked()">
+                        <img src="../assets/n-curti.png" /><label>NÃO CURTI!</label>
+                    </div>
+
+                    <div class="circle-desktop-jump" data-ng-click="vm.Jumped()">
+                        <p>PULAR</p>
+                    </div>
+
+                    <div class="circle-desktop" data-ng-click="vm.Liked()">
+                        <img src="../assets/curti.png" /><label id="ButtomCurtir">CURTI!</label>
+                    </div>
+                    <div class="jump-buttom">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!--Sessão da tela de Filmes Curtidos-->
+        <section data-ng-if="vm.Screen == 'Curtidos'" id="LikedIdDesktop" class="container-desktop">
+            <div class="List-desktop">
+                <h1>FILMES CURTIDOS</h1>
+
+                <img src="../assets/video-camera-vazio.png" class="video-camera-vazio-desktop" data-ng-if="vm.LikedMovies.length == 0" />
+                <h1 class="nenhum-filme-desktop" data-ng-if="vm.LikedMovies.length == 0">NENHUM FILME</h1>
+                <div class="movie-list-box-desktop" data-ng-repeat="item in vm.LikedMovies" data-ng-init="vm.EvaluationFuncLiked(item.vote_average, vm.LikedMovies, $index)">
+                    <div class="movie-list-image-desktop">
+                        <label></label>
+                        <img data-ng-src="{{vm.URLImage + item.poster_path}}" alt="Capa do Filme" />
+                        <div class="small-title-movie-list-desktop" data-ng-init="vm.EvaluationFunc(vm.LikedMovies, $index)">
+                            <h2 data-ng-class="{'long-tittle-list-desktop': item.original_title.length >= 17 }">{{item.original_title}}</h2>
+                            <div data-ng-repeat="item2 in vm.LikedMovies[$index].Coracoes[0]" class="evaluation-list-desktop">
+                                <img data-ng-src="{{item2.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert-desktop': item2.link == '../assets/favorite_.png'}" />
+                                <!--//data-ng-init="vm.CountIndexCoracoes($index)"-->
+                            </div>
+
+                            <p>
+                                ({{vm.EvaluationsCount}} avaliações)
+                            </p>
+                            <div class="p-info-open-sino-desktop">
+                                <p>
+                                    {{vm.SinopePreview}}
+                                </p>
+                                <a href="#" data-ng-click="vm.SynopseOnLikesDeslikes()">
+                                    <label>Ver Sinopse</label></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="movie-list-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Sessão da tela de Filmes não Curtidos-->
+        <section data-ng-if="vm.Screen == 'NCurtidos'" id="DislikedIdDesktop" class="container-desktop">
+            <div class="List-desktop" data-ng-init="vm.EvaluationFunc(vm.LikedMovies)">
+                <h1>FILMES NÃO CURTIDOS</h1>
+
+                <img src="../assets/video-camera-vazio.png" class="video-camera-vazio-desktop" data-ng-if="vm.DislikedMovies.length == 0" />
+                <!---->
+                <h1 class="nenhum-filme-desktop" data-ng-if="vm.DislikedMovies.length == 0">NENHUM FILME</h1>
+                <div class="movie-list-box-desktop" data-ng-repeat="item in vm.DislikedMovies">
+                    <div class="movie-list-image-desktop">
+                        <label></label>
+                        <img data-ng-src="{{vm.URLImage + item.poster_path}}" alt="Capa do Filme" />
+                        <div class="small-title-movie-list-desktop">
+                            <h2 data-ng-class="{'long-tittle-list-desktop': item.original_title.length >= 17 }">{{item.original_title}}</h2>
+                            <div data-ng-repeat="item2 in vm.DislikedMovies[$index].Coracoes[0]" class="evaluation-list-desktop">
+                                <img data-ng-src="{{item2.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert-desktop': item2.link == '../assets/favorite_.png'}" />
+                            </div>
+
+                            <p>
+                                ({{vm.EvaluationsCount}} avaliações)
+                            </p>
+
+                            <div class="p-info-open-sino-desktop">
+                                <p>
+                                    {{vm.SinopePreview}}
+                                </p>
+                                <a href="#" data-ng-click="vm.SynopseOnLikesDeslikes()">
+                                    <label>Ver Sinopse</label></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="movie-list-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Sinopse dos filmes-->
+        <div data-ng-if="vm.SynopseOnFromLikesDeslikes" class="synopse-modal-desktop">
+            <div>
+                <div class="x-close-div-desktop" data-ng-click="vm.SynopseOnLikesDeslikes()">
+                    <label id="x-close-desktop">
+                        X
+                    </label>
+                </div>
+                <div class="red-div-synopse-desktop">
+                    &nbsp
+                </div>
+
+                <div class="white-div-synopse-desktop">
+                    <div class="small-poster-image-desktop">
+                        <img data-ng-src="{{vm.PosterImage}}" alt="Capa do Filme" />
+                    </div>
+                </div>
+
+                <div class="white-div-synopse-desktop">
+                    <div>
+                        <h1>{{vm.MovieTitleSynopse}}</h1>
+                    </div>
+                </div>
+
+                <div class="synopse-hearts-desktop">
+                    <div data-ng-repeat="item in vm.Evaluation" class="evaluation-desktop">
+                        <img data-ng-src="{{item.link}}" alt="Alternate Text" data-ng-class="{'filter-color-invert': item.link == '../assets/favorite_.png'}" />
+                    </div>
+                    <p>
+                        ({{vm.EvaluationsCount}} avaliações)
+                    </p>
+                </div>
+
+                <div class="last-white-div-synopse-desktop">
+                    <label class="synopse-complete-desktop">
+                        {{vm.SynopseComplete}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <footer data-ng-if="vm.Resolution >= 321">
+            <div class="footer-desktop">
+                <a href="https://pt-br.facebook.com/vivadecora/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                    </svg></a>
+
+                <a href="https://www.instagram.com/vivadecora/?hl=pt-br" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg></a>
+
+                <a href="https://br.pinterest.com/vivadecorabr/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" fill-rule="evenodd" clip-rule="evenodd" />
+                    </svg></a>
+
+                <a href="https://play.google.com/store/apps/details?id=br.com.vivadecora.app&hl=pt_BR" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M7 11v2.4h3.97c-.16 1.029-1.2 3.02-3.97 3.02-2.39 0-4.34-1.979-4.34-4.42 0-2.44 1.95-4.42 4.34-4.42 1.36 0 2.27.58 2.79 1.08l1.9-1.83c-1.22-1.14-2.8-1.83-4.69-1.83-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.721-2.84 6.721-6.84 0-.46-.051-.81-.111-1.16h-6.61zm0 0 17 2h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2z" fill-rule="evenodd" clip-rule="evenodd" />
+                    </svg></a>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>
